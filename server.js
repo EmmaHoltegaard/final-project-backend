@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import listEndpoints from "express-list-endpoints";
+import productData from "./products.json"
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://127.0.0.1:27017/final-project";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -17,6 +18,47 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Schema + model
+const { Schema } = mongoose;
+const productSchema = new Schema ({
+  name: {
+    type: String,
+    required: true
+  },
+  type: {
+    type: String,
+    required: true,
+    trim: true,
+    enum: {
+      values: ["læringsmaterialer", "workshop", "forløb", "klippekort"]
+    }
+  },
+  price: {
+    type: Number,
+    required: true
+  },
+  description: {
+    type: String,
+    minlength: 10,
+    maxlength: 400,
+    required: true,
+    trim: true
+  }
+})
+
+const Product = mongoose.model("Product", productSchema)
+
+// For developing: Reset Database
+if (process.env.RESET_DB) {
+  const resetDatabase = async () => {
+    await Product.deleteMany();
+    productData.forEach((singleProduct) => {
+      const newProduct = new Product (singleProduct)
+      newProduct.save()
+    })
+  }
+  resetDatabase()
+}
 
 // ROUTES:
 
@@ -24,9 +66,33 @@ app.get("/", (req, res) => {
   res.json(listEndpoints(app))
 });
 
-//GET endpoint: Gets list of all products
-app.get("/products", (req, res) => {
-  res.send("This is a list of all products")
+// GET endpoint: Gets list of all products
+// Just for now, these products are gotten from a json.file.
+app.get("/products", async (req, res) => {
+  const products = await Product.find()
+
+  try {
+    if (products) {
+      res.status(200).json({
+        success: true,
+        body: products
+      })
+    } else {
+      res.status(404).json({
+        success: false,
+        body: {
+          message: "Products not found"
+        }
+      })
+    }
+  } catch(err) {
+    res.status(404).json({
+      success: false,
+      body: {
+        message: err
+      }
+    })
+  }
 })
 
 //POST endpoint: Posts product to the database

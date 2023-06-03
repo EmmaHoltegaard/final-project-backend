@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import listEndpoints from "express-list-endpoints";
-import productData from "./products.json"
+// import productData from "./products.json"
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://127.0.0.1:27017/final-project";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -18,7 +18,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Schema + model
+// Schema + model for products
 const { Schema } = mongoose;
 const productSchema = new Schema ({
   name: {
@@ -48,18 +48,6 @@ const productSchema = new Schema ({
 
 const Product = mongoose.model("Product", productSchema)
 
-// For developing/testing: Reset Database
-if (process.env.RESET_DB) {
-  const resetDatabase = async () => {
-    await Product.deleteMany();
-    productData.forEach((singleProduct) => {
-      const newProduct = new Product (singleProduct)
-      newProduct.save()
-    })
-  }
-  resetDatabase()
-}
-
 // ROUTES:
 
 app.get("/", (req, res) => {
@@ -69,6 +57,7 @@ app.get("/", (req, res) => {
 // GET endpoint: Gets list of all products
 // Just for now, these products are gotten from a json.file, just for testing.
 app.get("/products", async (req, res) => {
+  // await Product.deleteMany()
   const products = await Product.find()
 
   try {
@@ -96,8 +85,26 @@ app.get("/products", async (req, res) => {
 })
 
 //POST endpoint: Posts product to the database
-app.post("/products", (req, res) => {
-  // create based on schema/model
+app.post("/products", async (req, res) => {
+  const { name, type, price, description } = req.body;
+  try {
+    const newProduct = await new Product({
+      name: name,
+      type: type,
+      price: price,
+      description: description
+    }).save()
+    res.status(200).json({
+      success: true,
+      response: `Product ${newProduct.name} was added to database`
+    })
+  } catch(err) {
+    res.status(400).json({
+      success: false,
+      response: 'Product could not be added to database',
+      errors: err.errors
+    })
+  }
 })
 
 //GET endpoint: Gets a single product

@@ -18,6 +18,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+
 // Schema + model for products
 const { Schema } = mongoose;
 const productSchema = new Schema ({
@@ -47,6 +48,7 @@ const productSchema = new Schema ({
 })
 
 const Product = mongoose.model("Product", productSchema)
+
 
 // ROUTES:
 

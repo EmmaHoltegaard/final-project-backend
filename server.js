@@ -134,6 +134,29 @@ app.get("/products/id/:id", async (req, res) => {
   }
 })
 
+//DELETE endpoint: Deletes a single product from the database.
+app.delete("/products/id/:id", async (req, res) => {
+  try {
+    const deletedProduct = await Product.findByIdAndDelete(req.params.id);
+    if (deletedProduct) {
+      res.status(200).json({
+        success: true,
+        response: `Product ${deletedProduct.name} was deleted from the database`
+      })
+    } else {
+      res.status(404).json({
+        success: false,
+        response: "Product not found"
+      })
+    } 
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      response: err
+    })
+  }
+})
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);

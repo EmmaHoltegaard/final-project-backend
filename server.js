@@ -48,7 +48,7 @@ const productSchema = new Schema ({
 
 const Product = mongoose.model("Product", productSchema)
 
-// For developing: Reset Database
+// For developing/testing: Reset Database
 if (process.env.RESET_DB) {
   const resetDatabase = async () => {
     await Product.deleteMany();
@@ -67,7 +67,7 @@ app.get("/", (req, res) => {
 });
 
 // GET endpoint: Gets list of all products
-// Just for now, these products are gotten from a json.file.
+// Just for now, these products are gotten from a json.file, just for testing.
 app.get("/products", async (req, res) => {
   const products = await Product.find()
 
@@ -101,8 +101,30 @@ app.post("/products", (req, res) => {
 })
 
 //GET endpoint: Gets a single product
-app.get("/products/id/:id", (req, res) => {
-  res.send("This is a single product")
+app.get("/products/id/:id", async (req, res) => {
+  try {
+    const singleProduct = await Product.findById(req.params.id)
+    if (singleProduct) {
+      res.status(200).json({
+        success: true,
+        body: singleProduct
+      })
+    } else {
+      res.status(404).json({
+        success: false,
+        body: {
+          message: "Product not found"
+        }
+      })
+    }
+  } catch(err) {
+    res.status(404).json({
+      success: false,
+      body: {
+        message: err
+      }
+    })
+  }
 })
 
 // Start the server

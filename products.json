@@ -6,33 +6,33 @@
         "description": "Med et klippekort får du 20% rabat på hver session - det svarer også til, at den 5. session er gratis"
     },
     {
-        "name": "20/8: Workshop om normkritisk terapi",
+        "name": "Workshop om normkritisk terapi (28/8)",
         "type": "workshop",
         "price": "200",
-        "description": "adkfsdkfjhsdfsdfsdfsdfasdkjfhaskdjh sd fsdf sd "
+        "description": "Få indblik i normkritik, hvordan dette kan bruges i en terapeutisk sammenhæng"
     },
     {
-        "name": "3/9: Tegneterapeutisk workshop",
+        "name": "Tegneterapeutisk workshop (9/3)",
         "type": "workshop",
         "price": "200",
-        "description": "adkfsdkfjhasdkjfhasdfsdfsdfsskdjh sd fsdf sd "
+        "description": "Kom og prøv kræfter med tegneterapi. Workshoppen varer ca. 2 timer."
     },
     {
         "name": "Støtteforløb til ADHD udredning",
         "type": "forløb",
         "price": "1600",
-        "description": "adkfsdkfjhasdkjfhaskdjh sdfsdfsdfsdfd fsdf sd "
+        "description": "Dette tilbud er til dig, som gerne vil i udredning for ADHD, men har brug for ekstern støtte i processen"
     },
     {
         "name": "Forstå din ADHD diagnose",
         "type": "forløb",
         "price": "1600",
-        "description": "Psykoedukativt forløb om ADHD målrettet voksne med ADHD"
+        "description": "Psykoedukativt forløb målrettet voksne med ADHD"
     },
     {
         "name": "Normkritik",
         "type": "læringsmaterialer",
         "price": "300",
-        "description": "Psykoedukativt forløb om ADHD målrettet folk der får stillet en ADHD diagnose som voksen."
+        "description": "Bog om normkritk, med fokus på hvordan normkritik kan indgå i terapeutisk praksis"
     }
 ]

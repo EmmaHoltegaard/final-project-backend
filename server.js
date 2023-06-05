@@ -91,7 +91,7 @@ app.get("/products", async (req, res) => {
 
 //POST endpoint: Posts product to the database
 app.post("/products", async (req, res) => {
-  const { name, type, price, description } = req.body;
+  const { name, type, imgUrl, price, description } = req.body;
   try {
     const newProduct = await new Product({
       name: name,

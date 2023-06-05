@@ -97,6 +97,7 @@ app.post("/products", async (req, res) => {
       name: name,
       type: type,
       price: price,
+      imgUrl: imgUrl,
       description: description
     }).save()
     res.status(200).json({

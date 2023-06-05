@@ -3,36 +3,42 @@
         "name": "Klippekort: 5 klip",
         "type": "klippekort",
         "price": "2400",
+        "imgUrl": "https://images.unsplash.com/photo-1591462391971-9ffc57b382b9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
         "description": "Med et klippekort får du 20% rabat på hver session - det svarer også til, at den 5. session er gratis"
     },
     {
         "name": "Workshop om normkritisk terapi (28/8)",
         "type": "workshop",
         "price": "200",
+        "imgUrl": "https://images.unsplash.com/photo-1591462391971-9ffc57b382b9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
         "description": "Få indblik i normkritik, hvordan dette kan bruges i en terapeutisk sammenhæng"
     },
     {
         "name": "Tegneterapeutisk workshop (9/3)",
         "type": "workshop",
         "price": "200",
+        "imgUrl": "https://images.unsplash.com/photo-1591462391971-9ffc57b382b9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
         "description": "Kom og prøv kræfter med tegneterapi. Workshoppen varer ca. 2 timer."
     },
     {
         "name": "Støtteforløb til ADHD udredning",
         "type": "forløb",
         "price": "1600",
-        "description": "Dette tilbud er til dig, som gerne vil i udredning for ADHD, men har brug for ekstern støtte i processen"
+        "imgUrl": "https://images.unsplash.com/photo-1591462391971-9ffc57b382b9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+        "description": "Dette tilbud er til dig, som gerne vil i udredning for ADHD, men har brug for støtte i processen"
     },
     {
         "name": "Forstå din ADHD diagnose",
         "type": "forløb",
         "price": "1600",
+        "imgUrl": "https://images.unsplash.com/photo-1591462391971-9ffc57b382b9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
         "description": "Psykoedukativt forløb målrettet voksne med ADHD"
     },
     {
-        "name": "Normkritik",
+        "name": "Normfri Terapi",
         "type": "læringsmaterialer",
         "price": "300",
+        "imgUrl": "https://images.unsplash.com/photo-1531346644014-cde582069e71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
         "description": "Bog om normkritk, med fokus på hvordan normkritik kan indgå i terapeutisk praksis"
     }
 ]

@@ -38,6 +38,7 @@ const productSchema = new Schema ({
     type: Number,
     required: true
   },
+  imgUrl: String,
   description: {
     type: String,
     minlength: 10,
@@ -59,7 +60,7 @@ app.get("/", (req, res) => {
 // GET endpoint: Gets list of all products
 // Just for now, these products are gotten from a json.file, just for testing.
 app.get("/products", async (req, res) => {
-  // await Product.deleteMany()
+  await Product.deleteMany()
   const products = await Product.find()
 
   try {

@@ -38,7 +38,10 @@ const productSchema = new Schema ({
     type: Number,
     required: true
   },
-  imgUrl: String,
+  imgUrl: {
+    type: String,
+    required: true
+  },
   description: {
     type: String,
     minlength: 10,

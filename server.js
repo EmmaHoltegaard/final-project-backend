@@ -5,7 +5,6 @@ import listEndpoints from "express-list-endpoints";
 import dotenv from "dotenv"
 import nodemailer from "nodemailer"
 // import productData from "./products.json"
-const router = express.Router()
 
 dotenv.config()
 
@@ -22,7 +21,6 @@ const app = express();
 // Add middlewares to enable cors and json body parsing
 app.use(cors());
 app.use(express.json());
-app-use("/", router);
 
 
 // FORM TO EMAIL/NODEMAILER:
@@ -45,7 +43,7 @@ contactEmail.verify((error) => {
 })
 
 // Receiver
-router.post("/contact", (req, res) => {
+app.post("/contact", (req, res) => {
   const name = req.body.name;
   const email = req.body.email;
   const phone = req.body.phone;
@@ -69,6 +67,7 @@ router.post("/contact", (req, res) => {
     }
   });
 });
+
 
 // DATABASE:
 

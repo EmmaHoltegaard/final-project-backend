@@ -2,7 +2,12 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import listEndpoints from "express-list-endpoints";
+import dotenv from "dotenv"
+import nodemailer from "nodemailer"
 // import productData from "./products.json"
+const router = express.Router()
+
+dotenv.config()
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://127.0.0.1:27017/final-project";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -17,7 +22,55 @@ const app = express();
 // Add middlewares to enable cors and json body parsing
 app.use(cors());
 app.use(express.json());
+app-use("/", router);
 
+
+// FORM TO EMAIL/NODEMAILER:
+
+// Sender:
+const contactEmail = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.SENDER_EMAIL,
+    password: process.env.SENDER_PASSWORD,
+  }
+});
+
+contactEmail.verify((error) => {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log("Ready to send")
+  }
+})
+
+// Receiver
+router.post("/contact", (req, res) => {
+  const name = req.body.name;
+  const email = req.body.email;
+  const phone = req.body.phone;
+  const pronouns = req.body.pronouns;
+  const message = req.body.message;
+  const mail = {
+    from: name,
+    to: process.env.TEST_EMAIL,
+    subject: "Contact Form Submission",
+    html: `<p>Name: ${name}</p>
+           <p>Email: ${email}</p>
+           <p>Telefon: ${phone}</p>
+           <p>Pronominer: ${pronouns}</p>
+           <p>Besked: ${message}</p>`,
+  };
+  contactEmail.sendMail (mail, (error) => {
+    if (error) {
+      res.json({ status: "Error" });
+    } else {
+      res.json({ status: "Message Sent" });
+    }
+  });
+});
+
+// DATABASE:
 
 // Schema + model for products
 const { Schema } = mongoose;

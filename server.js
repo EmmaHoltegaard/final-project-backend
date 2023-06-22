@@ -3,8 +3,6 @@ import cors from "cors";
 import mongoose from "mongoose";
 import listEndpoints from "express-list-endpoints";
 import dotenv from "dotenv"
-import nodemailer from "nodemailer"
-// import productData from "./products.json"
 
 dotenv.config()
 
@@ -12,60 +10,11 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://127.0.0.1:27017/final-proje
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
-// Defines the port the app will run on. Defaults to 8080, but can be overridden
-// when starting the server. Example command to overwrite PORT env variable value:
-// PORT=9000 npm start
 const port = process.env.PORT || 8080;
 const app = express();
 
-// Add middlewares to enable cors and json body parsing
 app.use(cors());
 app.use(express.json());
-
-
-// FORM TO EMAIL/NODEMAILER:
-// Sender:
-const contactEmail = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.SENDER_EMAIL,
-    password: process.env.SENDER_PASSWORD,
-  }
-});
-
-contactEmail.verify((error) => {
-  if (error) {
-    console.log(error);
-  } else {
-    console.log("Ready to send")
-  }
-})
-
-// Receiver
-app.post("/contact", (req, res) => {
-  const name = req.body.name;
-  const email = req.body.email;
-  const phone = req.body.phone;
-  const pronouns = req.body.pronouns;
-  const message = req.body.message;
-  const mail = {
-    from: name,
-    to: process.env.TEST_EMAIL,
-    subject: "Contact Form Submission",
-    html: `<p>Name: ${name}</p>
-           <p>Email: ${email}</p>
-           <p>Telefon: ${phone}</p>
-           <p>Pronominer: ${pronouns}</p>
-           <p>Besked: ${message}</p>`,
-  };
-  contactEmail.sendMail (mail, (error) => {
-    if (error) {
-      res.json({ status: "Error" });
-    } else {
-      res.json({ status: "Message Sent" });
-    }
-  });
-});
 
 
 // DATABASE:
@@ -111,8 +60,7 @@ app.get("/", (req, res) => {
   res.json(listEndpoints(app))
 });
 
-// GET endpoint: Gets list of all products
-// Just for now, these products are gotten from a json.file, just for testing.
+// GET endpoint: List of all products
 app.get("/products", async (req, res) => {
   const products = await Product.find()
 
@@ -191,7 +139,7 @@ app.get("/products/id/:id", async (req, res) => {
   }
 })
 
-//DELETE endpoint: Deletes a single product from the database.
+//DELETE endpoint: Deletes a single product from the database, based on id.
 app.delete("/products/id/:id", async (req, res) => {
   try {
     const deletedProduct = await Product.findByIdAndDelete(req.params.id);
